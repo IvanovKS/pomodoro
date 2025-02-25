@@ -32,9 +32,8 @@ function Header() {
   };
 
   return (
-    <Box sx={{ flexShrink: 0 }}>
-      <AppBar position="static">
-        <Container maxWidth="xl">
+      <AppBar position="static" sx={{ width: '100%', flexShrink: 0 }}>
+        <Container sx={{ width: '100%' }}>
           <Toolbar disableGutters>
             <Link to="/">
               <AvatarImg sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -86,9 +85,18 @@ function Header() {
                 ))}
               </Menu>
             </Box>
-            <Link to="/">
-              <AvatarImg sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            </Link>
+            <Box
+              sx={{
+                display: { xs: 'flex', md: 'none' },
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+              }}
+            >
+              <Link to="/">
+                <AvatarImg />
+              </Link>
+            </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
@@ -129,7 +137,6 @@ function Header() {
           </Toolbar>
         </Container>
       </AppBar>
-    </Box>
   );
 }
 

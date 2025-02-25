@@ -1,7 +1,12 @@
+import { Container } from '@mui/material';
 import React from 'react';
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <Container maxWidth="lg">
+      <div>Home</div>
+    </Container>
+  );
 }
 
 export default Home;

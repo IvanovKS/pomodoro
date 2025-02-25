@@ -1,7 +1,12 @@
+import { Container } from '@mui/material';
 import React from 'react';
 
 function Settings() {
-  return <div>Settings</div>;
+  return (
+    <Container maxWidth="lg">
+      <div>Settings</div>
+    </Container>
+  );
 }
 
 export default Settings;
