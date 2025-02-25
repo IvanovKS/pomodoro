@@ -66,11 +66,24 @@ function Header() {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs: 'block', md: 'none' } }}
               >
-                {/* {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                {pages.map((page) => (
+                  <MenuItem key={page.path} onClick={handleCloseNavMenu}>
+                    <Typography sx={{ textAlign: 'center' }}>
+                      <NavLink
+                        to={page.path}
+                        style={({ isActive }) => ({
+                          textDecoration: 'none',
+                          color: 'inherit',
+                          fontWeight: isActive ? 'bold' : 'normal',
+                          borderBottom: isActive ? '2px solid white' : 'none',
+                          padding: '5px',
+                        })}
+                      >
+                        {page.label}
+                      </NavLink>
+                    </Typography>
                   </MenuItem>
-                ))} */}
+                ))}
               </Menu>
             </Box>
             <Link to="/">
