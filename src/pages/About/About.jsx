@@ -1,9 +1,18 @@
 import React from 'react';
-import { Box, Typography, Link } from '@mui/material';
+import { Box, Typography, Link, Button } from '@mui/material';
+import PointsForUsing from './PointsForUsing';
 
 function About() {
   return (
-    <Box>
+    <Box
+      sx={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        margin: '0 auto',
+      }}
+    >
       <Typography
         variant="h4"
         gutterBottom
@@ -65,6 +74,32 @@ function About() {
       >
         How to use the Pomodoro Timer?
       </Typography>
+      <PointsForUsing
+        index="1) "
+        spanText="Start timer"
+        text=" and focus on the task for 25 minutes"
+      ></PointsForUsing>
+      <PointsForUsing
+        index="2) "
+        spanText="Take a break"
+        text=" for 5 minutes when the alarm ring"
+      ></PointsForUsing>
+      <PointsForUsing
+        index="3) "
+        spanText="Iterate"
+        text=" 3-5 until you finish the tasks"
+      ></PointsForUsing>
+      <Button
+        variant="contained"
+        href="/"
+        sx={{
+          mt: 3,
+          width: 'auto',
+          alignSelf: 'flex-start',
+        }}
+      >
+        Go home
+      </Button>
     </Box>
   );
 }
