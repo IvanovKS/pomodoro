@@ -5,7 +5,14 @@ import notFoundAnimation from '../../assets/animations/notFound.json';
 
 function NotFound() {
   return (
-    <Container maxWidth="lg">
+    <Container
+      maxWidth="lg"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
       <Box
         sx={{
           width: '100%',

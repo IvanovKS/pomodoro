@@ -4,21 +4,22 @@ import NotFound from './pages/NotFound/NotFound';
 import Settings from './pages/Settings';
 import About from './pages/About';
 import MainLayout from './layouts/MainLayout';
-import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <CssBaseline />
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
