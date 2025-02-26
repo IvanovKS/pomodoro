@@ -7,10 +7,16 @@ export const useSoundContext = () => {
 };
 
 export const SoundProvider = ({ children }) => {
-  const [isSound, setIsSound] = useState(false);
+  const [isSound, setIsSound] = useState(() => {
+    return localStorage.getItem('sound') === 'true';
+  });
 
   const toggleSound = () => {
-    setIsSound((prev) => !prev);
+    setIsSound((prev) => {
+      const newSoundState = !prev;
+      localStorage.setItem('sound', newSoundState);
+      return newSoundState;
+    });
   };
 
   return (

@@ -9,7 +9,9 @@ export const useThemeContext = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('theme') === 'true';
+  });
 
   const theme = createTheme({
     palette: {
@@ -18,7 +20,11 @@ export const ThemeProvider = ({ children }) => {
   });
 
   const toggleTheme = () => {
-    setDarkMode((prev) => !prev);
+    setDarkMode((prev) => {
+      const newTheme = !prev;
+      localStorage.setItem('theme', newTheme);
+      return newTheme;
+    });
   };
 
   return (
