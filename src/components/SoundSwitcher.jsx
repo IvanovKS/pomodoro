@@ -7,7 +7,9 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 function SoundSwitcher() {
   const { isSound, toggleSound } = useSoundContext();
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', scale: 1.2, pl: 1 }}>
+    <Box
+      sx={{ display: 'flex', justifyContent: 'center', fontSize: 32, pl: 1 }}
+    >
       <IconButton sx={{ p: 0 }} onClick={toggleSound}>
         {isSound ? <VolumeUpIcon /> : <VolumeOffIcon />}
       </IconButton>

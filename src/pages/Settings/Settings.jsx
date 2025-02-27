@@ -17,7 +17,7 @@ function Settings() {
         <AccessTimeFilledIcon
           sx={{
             color: 'info.main',
-            scale: 1.2,
+            fontSize: 32,
           }}
         />
         <Typography
@@ -28,7 +28,7 @@ function Settings() {
             m: 2,
           }}
         >
-          Sound
+          Timer
         </Typography>
       </Box>
       <Typography variant="h6" gutterBottom>
@@ -45,7 +45,7 @@ function Settings() {
         <VolumeUpIcon
           sx={{
             color: 'info.main',
-            scale: 1.2,
+            fontSize: 32,
           }}
         />
         <Typography
@@ -56,7 +56,7 @@ function Settings() {
             m: 2,
           }}
         >
-          Timer
+          Sound
         </Typography>
       </Box>
       <Typography variant="h6" gutterBottom>
