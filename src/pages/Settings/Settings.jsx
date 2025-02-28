@@ -3,6 +3,7 @@ import { Box, Container, Typography } from '@mui/material';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import TimerInputs from './TimerInputs';
+import SelectSound from './SelectSound';
 
 function Settings() {
   return (
@@ -62,6 +63,7 @@ function Settings() {
       <Typography variant="h6" gutterBottom>
         Alarm sound
       </Typography>
+      <SelectSound />
     </Container>
   );
 }
