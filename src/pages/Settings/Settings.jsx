@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import TimerInputs from './TimerInputs';
@@ -7,7 +7,14 @@ import SelectSound from './SelectSound';
 
 function Settings() {
   return (
-    <Container maxWidth="lg">
+    <Container
+      maxWidth="lg"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
@@ -64,6 +71,17 @@ function Settings() {
         Alarm sound
       </Typography>
       <SelectSound />
+      <Button
+        variant="contained"
+        href="/"
+        sx={{
+          mt: 3,
+          width: 'auto',
+          alignSelf: 'flex-start',
+        }}
+      >
+        Go home
+      </Button>
     </Container>
   );
 }
