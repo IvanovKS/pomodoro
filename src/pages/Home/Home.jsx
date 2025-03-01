@@ -1,13 +1,13 @@
 import React from 'react';
 import {
   Box,
-  Button,
   Container,
   Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
 import ActionButton from './ActionButton';
+import PomodoroButtons from './PomodoroButtons';
 
 function Home() {
   const theme = useTheme();
@@ -35,47 +35,7 @@ function Home() {
           alignContent: 'center',
         }}
       >
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Button
-            variant="contained"
-            href="/"
-            sx={{
-              mt: 3,
-              width: 'auto',
-              alignSelf: 'flex-start',
-            }}
-          >
-            Go home
-          </Button>
-          <Button
-            variant="contained"
-            href="/"
-            sx={{
-              mt: 3,
-              width: 'auto',
-              alignSelf: 'flex-start',
-            }}
-          >
-            Go home
-          </Button>
-          <Button
-            variant="contained"
-            href="/"
-            sx={{
-              mt: 3,
-              width: 'auto',
-              alignSelf: 'flex-start',
-            }}
-          >
-            Go home
-          </Button>
-        </Box>
+        <PomodoroButtons />
         <Box
           sx={{
             width: '100%',
