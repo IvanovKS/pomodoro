@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { useSoundContext } from '../../context/SoundContext';
 import Bell from '../../assets/audio/Bell.mp3';
 import Clock from '../../assets/audio/Clock.mp3';
 import Future from '../../assets/audio/Future.mp3';
@@ -23,6 +24,8 @@ function SelectSound() {
   const [selectedSound, setSelectedSound] = useState(sounds[0].value);
   const audioRef = useRef(null);
 
+  const { isSound } = useSoundContext();
+
   const handleChange = (event) => {
     const newSound = event.target.value;
     setSelectedSound(newSound);
@@ -31,6 +34,8 @@ function SelectSound() {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
+
+    if (!isSound) return;
 
     audioRef.current = new Audio(soundFiles[newSound]);
     audioRef.current.play().catch((error) => console.error('Error', error));
