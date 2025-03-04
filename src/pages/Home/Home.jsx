@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Container,
@@ -6,18 +6,29 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ActionButton from './ActionButton';
 import PomodoroButtons from './PomodoroButtons';
 import formatOfTimer from '../../utils/formatOfTimer';
+import { decrementTime } from '../../redux/slices/timerSlice';
 
 function Home() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const mode = useSelector((state) => state.timer.mode);
+  const dispatch = useDispatch();
   const timeLeft = useSelector((state) => state.timer.timeLeft);
-  console.log(mode, timeLeft);
+  const isRunning = useSelector((state) => state.timer.isRunning);
+
+  useEffect(() => {
+    if (!isRunning) return;
+
+    const timer = setInterval(() => {
+      dispatch(decrementTime());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isRunning, dispatch]);
 
   return (
     <Container

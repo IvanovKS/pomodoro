@@ -28,10 +28,17 @@ const timerSlice = createSlice({
     setTimeLeft: (state, action) => {
       state.timeLeft = action.payload;
     },
+    decrementTime: (state) => {
+      if (state.timeLeft > 0) {
+        state.timeLeft -= 1;
+      } else {
+        state.isRunning = false;
+      }
+    },
   },
 });
 
-export const { startTimer, stopTimer, setMode, setTimeLeft } =
+export const { startTimer, stopTimer, setMode, setTimeLeft, decrementTime } =
   timerSlice.actions;
 
 export default timerSlice.reducer;
