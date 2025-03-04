@@ -8,10 +8,15 @@ import {
 } from '@mui/material';
 import ActionButton from './ActionButton';
 import PomodoroButtons from './PomodoroButtons';
+import { useSelector } from 'react-redux';
 
 function Home() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const mode = useSelector((state) => state.timer.mode);
+  const timeLeft = useSelector((state) => state.timer.timeLeft);
+  console.log(mode, timeLeft);
 
   return (
     <Container
@@ -54,7 +59,7 @@ function Home() {
               letterSpacing: '20px',
             }}
           >
-            15:00
+            {timeLeft}
           </Typography>
         </Box>
         <ActionButton />
