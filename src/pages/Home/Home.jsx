@@ -6,9 +6,10 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 import ActionButton from './ActionButton';
 import PomodoroButtons from './PomodoroButtons';
-import { useSelector } from 'react-redux';
+import formatOfTimer from '../../utils/formatOfTimer';
 
 function Home() {
   const theme = useTheme();
@@ -59,7 +60,7 @@ function Home() {
               letterSpacing: '20px',
             }}
           >
-            {timeLeft}
+            {formatOfTimer(timeLeft)}
           </Typography>
         </Box>
         <ActionButton />
