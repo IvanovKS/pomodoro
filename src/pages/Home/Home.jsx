@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Box,
   Container,
@@ -11,6 +11,17 @@ import ActionButton from './ActionButton';
 import PomodoroButtons from './PomodoroButtons';
 import formatOfTimer from '../../utils/formatOfTimer';
 import { decrementTime } from '../../redux/slices/timerSlice';
+import Bell from '../../assets/audio/Bell.mp3';
+import Clock from '../../assets/audio/Clock.mp3';
+import Future from '../../assets/audio/Future.mp3';
+import Robot from '../../assets/audio/Robot.mp3';
+
+const soundFiles = {
+  Bell,
+  Clock,
+  Future,
+  Robot,
+};
 
 function Home() {
   const theme = useTheme();
@@ -19,6 +30,20 @@ function Home() {
   const dispatch = useDispatch();
   const timeLeft = useSelector((state) => state.timer.timeLeft);
   const isRunning = useSelector((state) => state.timer.isRunning);
+  const currentSound = useSelector((state) => state.sound.currentSound);
+
+  const audioRef = useRef(null);
+  useEffect(() => {
+    if (timeLeft === 0) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+
+      audioRef.current = new Audio(soundFiles[currentSound]);
+      audioRef.current.play().catch((error) => console.error('Error', error));
+    }
+  }, [timeLeft, currentSound]);
 
   useEffect(() => {
     if (!isRunning) return;
