@@ -1,15 +1,33 @@
 import { Box, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDurations } from '../../redux/slices/timerSlice';
 
 function TimerInputs() {
-  const [pomodoroTime, setPomodoroTime] = useState(25);
-  const [shortBreakTime, setShortBreakTime] = useState(5);
-  const [longBreakTime, setLongBreakTime] = useState(15);
+  const dispatch = useDispatch();
+  const durations = useSelector((state) => state.timer.durations);
 
-  const handleChange = (setter, min, max) => (event) => {
+  const [pomodoroTime, setPomodoroTime] = useState(durations.Pomodoro / 60);
+  const [shortBreakTime, setShortBreakTime] = useState(
+    durations['Short break'] / 60
+  );
+  const [longBreakTime, setLongBreakTime] = useState(
+    durations['Long break'] / 60
+  );
+
+  const handleChange = (setter, min, max, key) => (event) => {
     let value = Number(event.target.value);
     value = Math.max(min, Math.min(max, value));
     setter(value);
+    setTimeout(() => {
+      dispatch(
+        setDurations({
+          Pomodoro: key === 'Pomodoro' ? value * 60 : pomodoroTime * 60,
+          'Short break': key === 'Short break' ? value * 60 : shortBreakTime * 60,
+          'Long break': key === 'Long break' ? value * 60 : longBreakTime * 60,
+        })
+      );
+    }, 0);
   };
   return (
     <Box

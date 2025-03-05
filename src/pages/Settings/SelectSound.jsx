@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useSoundContext } from '../../context/SoundContext';
 import Bell from '../../assets/audio/Bell.mp3';
 import Clock from '../../assets/audio/Clock.mp3';
 import Future from '../../assets/audio/Future.mp3';
 import Robot from '../../assets/audio/Robot.mp3';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSound } from '../../redux/slices/soundSlice';
 
 const soundFiles = {
   Bell,
@@ -21,14 +23,16 @@ const sounds = [
 ];
 
 function SelectSound() {
-  const [selectedSound, setSelectedSound] = useState(sounds[0].value);
+  const dispatch = useDispatch();
+  const selectedSound = useSelector((state) => state.sound.currentSound);
+
   const audioRef = useRef(null);
 
   const { isSound } = useSoundContext();
 
   const handleChange = (event) => {
     const newSound = event.target.value;
-    setSelectedSound(newSound);
+    dispatch(setSound(newSound));
 
     if (audioRef.current) {
       audioRef.current.pause();
