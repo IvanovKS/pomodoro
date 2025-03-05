@@ -11,17 +11,7 @@ import ActionButton from './ActionButton';
 import PomodoroButtons from './PomodoroButtons';
 import formatOfTimer from '../../utils/formatOfTimer';
 import { decrementTime } from '../../redux/slices/timerSlice';
-import Bell from '../../assets/audio/Bell.mp3';
-import Clock from '../../assets/audio/Clock.mp3';
-import Future from '../../assets/audio/Future.mp3';
-import Robot from '../../assets/audio/Robot.mp3';
-
-const soundFiles = {
-  Bell,
-  Clock,
-  Future,
-  Robot,
-};
+import soundFiles from '../../constants/soundFiles';
 
 function Home() {
   const theme = useTheme();

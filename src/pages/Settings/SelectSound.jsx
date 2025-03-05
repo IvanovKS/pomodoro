@@ -1,19 +1,9 @@
 import React, { useRef } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useSoundContext } from '../../context/SoundContext';
-import Bell from '../../assets/audio/Bell.mp3';
-import Clock from '../../assets/audio/Clock.mp3';
-import Future from '../../assets/audio/Future.mp3';
-import Robot from '../../assets/audio/Robot.mp3';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSound } from '../../redux/slices/soundSlice';
-
-const soundFiles = {
-  Bell,
-  Clock,
-  Future,
-  Robot,
-};
+import soundFiles from '../../constants/soundFiles';
 
 const sounds = [
   { label: 'Bell', value: 'Bell' },
