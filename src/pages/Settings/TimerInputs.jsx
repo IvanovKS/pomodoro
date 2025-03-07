@@ -17,13 +17,16 @@ function TimerInputs() {
 
   const handleChange = (setter, min, max, key) => (event) => {
     let value = Number(event.target.value);
-    value = Math.max(min, Math.min(max, value));
+    if (value !== '') {
+      value = Math.max(min, Math.min(max, value));
+    }
     setter(value);
     setTimeout(() => {
       dispatch(
         setDurations({
           Pomodoro: key === 'Pomodoro' ? value * 60 : pomodoroTime * 60,
-          'Short break': key === 'Short break' ? value * 60 : shortBreakTime * 60,
+          'Short break':
+            key === 'Short break' ? value * 60 : shortBreakTime * 60,
           'Long break': key === 'Long break' ? value * 60 : longBreakTime * 60,
         })
       );
@@ -41,7 +44,12 @@ function TimerInputs() {
         label="Pomodoro"
         variant="outlined"
         value={pomodoroTime}
-        onChange={handleChange(setPomodoroTime, 10, 50)}
+        onChange={handleChange(setPomodoroTime, 10, 50, 'Pomodoro')}
+        onKeyDown={(event) => {
+          if (!['ArrowUp', 'ArrowDown'].includes(event.key)) {
+            event.preventDefault();
+          }
+        }}
         slotProps={{
           input: {
             min: 10,
@@ -55,7 +63,12 @@ function TimerInputs() {
         label="Short Break"
         variant="outlined"
         value={shortBreakTime}
-        onChange={handleChange(setShortBreakTime, 1, 20)}
+        onChange={handleChange(setShortBreakTime, 1, 20, 'Short break')}
+        onKeyDown={(event) => {
+          if (!['ArrowUp', 'ArrowDown'].includes(event.key)) {
+            event.preventDefault();
+          }
+        }}
         slotProps={{
           input: {
             min: 1,
@@ -69,7 +82,12 @@ function TimerInputs() {
         label="Long Break"
         variant="outlined"
         value={longBreakTime}
-        onChange={handleChange(setLongBreakTime, 5, 30)}
+        onChange={handleChange(setLongBreakTime, 5, 30, 'Long break')}
+        onKeyDown={(event) => {
+          if (!['ArrowUp', 'ArrowDown'].includes(event.key)) {
+            event.preventDefault();
+          }
+        }}
         slotProps={{
           input: {
             min: 5,
