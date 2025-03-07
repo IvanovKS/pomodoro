@@ -7,31 +7,43 @@ function TimerInputs() {
   const dispatch = useDispatch();
   const durations = useSelector((state) => state.timer.durations);
 
-  const [pomodoroTime, setPomodoroTime] = useState(durations.Pomodoro / 60);
-  const [shortBreakTime, setShortBreakTime] = useState(
-    durations['Short break'] / 60
-  );
-  const [longBreakTime, setLongBreakTime] = useState(
-    durations['Long break'] / 60
-  );
+  const [times, setTimes] = useState({
+    Pomodoro: durations.Pomodoro / 60,
+    'Short break': durations['Short break'] / 60,
+    'Long break': durations['Long break'] / 60,
+  });
 
-  const handleChange = (setter, min, max, key) => (event) => {
+  const handleChange = (key, min, max) => (event) => {
     let value = Number(event.target.value);
     if (value !== '') {
       value = Math.max(min, Math.min(max, value));
     }
-    setter(value);
+    setTimes((prev) => ({ ...prev, [key]: value }));
     setTimeout(() => {
       dispatch(
         setDurations({
-          Pomodoro: key === 'Pomodoro' ? value * 60 : pomodoroTime * 60,
+          Pomodoro: key === 'Pomodoro' ? value * 60 : times.Pomodoro * 60,
           'Short break':
-            key === 'Short break' ? value * 60 : shortBreakTime * 60,
-          'Long break': key === 'Long break' ? value * 60 : longBreakTime * 60,
+            key === 'Short break' ? value * 60 : times['Short break'] * 60,
+          'Long break':
+            key === 'Long break' ? value * 60 : times['Long break'] * 60,
         })
       );
     }, 0);
   };
+
+  const handleKeyDown = (event) => {
+    if (!['ArrowUp', 'ArrowDown'].includes(event.key)) {
+      event.preventDefault();
+    }
+  };
+
+  const inputs = [
+    { label: 'Pomodoro', min: 10, max: 50 },
+    { label: 'Short Break', min: 1, max: 20 },
+    { label: 'Long Break', min: 5, max: 30 },
+  ];
+
   return (
     <Box
       component="form"
@@ -39,63 +51,26 @@ function TimerInputs() {
       noValidate
       autoComplete="off"
     >
-      <TextField
-        type="number"
-        label="Pomodoro"
-        variant="outlined"
-        value={pomodoroTime}
-        onChange={handleChange(setPomodoroTime, 10, 50, 'Pomodoro')}
-        onKeyDown={(event) => {
-          if (!['ArrowUp', 'ArrowDown'].includes(event.key)) {
-            event.preventDefault();
-          }
-        }}
-        slotProps={{
-          input: {
-            min: 10,
-            max: 50,
-            step: 1,
-          },
-        }}
-      />
-      <TextField
-        type="number"
-        label="Short Break"
-        variant="outlined"
-        value={shortBreakTime}
-        onChange={handleChange(setShortBreakTime, 1, 20, 'Short break')}
-        onKeyDown={(event) => {
-          if (!['ArrowUp', 'ArrowDown'].includes(event.key)) {
-            event.preventDefault();
-          }
-        }}
-        slotProps={{
-          input: {
-            min: 1,
-            max: 20,
-            step: 1,
-          },
-        }}
-      />
-      <TextField
-        type="number"
-        label="Long Break"
-        variant="outlined"
-        value={longBreakTime}
-        onChange={handleChange(setLongBreakTime, 5, 30, 'Long break')}
-        onKeyDown={(event) => {
-          if (!['ArrowUp', 'ArrowDown'].includes(event.key)) {
-            event.preventDefault();
-          }
-        }}
-        slotProps={{
-          input: {
-            min: 5,
-            max: 30,
-            step: 1,
-          },
-        }}
-      />
+      {inputs.map(({ label, min, max }) => {
+        return (
+          <TextField
+            type="number"
+            key={label}
+            label={label}
+            variant="outlined"
+            value={times[label]}
+            onChange={handleChange(label, min, max)}
+            onKeyDown={handleKeyDown}
+            slotProps={{
+              input: {
+                min,
+                max,
+                step: 1,
+              },
+            }}
+          />
+        );
+      })}
     </Box>
   );
 }
