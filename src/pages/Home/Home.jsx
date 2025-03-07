@@ -63,7 +63,7 @@ function Home() {
           margin: '0 auto',
           backgroundColor: '#d7edff40',
           borderRadius: 1,
-          p: 2,
+          p: isMobile ? 0 : 2,
           alignContent: 'center',
         }}
       >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMode } from '../../redux/slices/timerSlice';
 
@@ -12,6 +12,9 @@ const buttons = [
 function PomodoroButtons() {
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.timer.mode);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box
@@ -29,9 +32,10 @@ function PomodoroButtons() {
             onClick={() => dispatch(setMode(elem.value))}
             size="small"
             sx={{
-              m: 1,
-              width: '130px',
+              m: isMobile ? 0 : 1,
+              width: isMobile ? '100px' : '130px',
               alignSelf: 'flex-start',
+              p: isMobile ? 0 : 1,
             }}
           >
             {elem.value}
