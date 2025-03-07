@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Box,
   Container,
@@ -6,12 +6,44 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import ActionButton from './ActionButton';
 import PomodoroButtons from './PomodoroButtons';
+import formatOfTimer from '../../utils/formatOfTimer';
+import { decrementTime } from '../../redux/slices/timerSlice';
+import soundFiles from '../../constants/soundFiles';
 
 function Home() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const dispatch = useDispatch();
+  const timeLeft = useSelector((state) => state.timer.timeLeft);
+  const isRunning = useSelector((state) => state.timer.isRunning);
+  const currentSound = useSelector((state) => state.sound.currentSound);
+
+  const audioRef = useRef(null);
+  useEffect(() => {
+    if (timeLeft === 0) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+
+      audioRef.current = new Audio(soundFiles[currentSound]);
+      audioRef.current.play().catch((error) => console.error('Error', error));
+    }
+  }, [timeLeft, currentSound]);
+
+  useEffect(() => {
+    if (!isRunning) return;
+
+    const timer = setInterval(() => {
+      dispatch(decrementTime());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isRunning, dispatch]);
 
   return (
     <Container
@@ -54,7 +86,7 @@ function Home() {
               letterSpacing: '20px',
             }}
           >
-            15:00
+            {formatOfTimer(timeLeft)}
           </Typography>
         </Box>
         <ActionButton />

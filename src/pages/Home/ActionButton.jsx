@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Button, Stack } from '@mui/material';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import PauseCircleIcon from '@mui/icons-material/PauseCircle';
+import { useDispatch, useSelector } from 'react-redux';
+import { startTimer, stopTimer } from '../../redux/slices/timerSlice';
 
 function ActionButton() {
-  const [isStart, setIsStart] = useState(false);
+  const dispatch = useDispatch();
+  const isRunning = useSelector((state) => state.timer.isRunning);
 
   const handleClick = () => {
-    setIsStart(!isStart);
+    if (isRunning === true) {
+      dispatch(stopTimer());
+    }
+    if (isRunning === false) {
+      dispatch(startTimer());
+    }
   };
   return (
     <Box
@@ -30,7 +38,7 @@ function ActionButton() {
           onClick={handleClick}
           variant="contained"
           startIcon={
-            isStart === false ? (
+            isRunning === false ? (
               <PlayCircleFilledWhiteIcon />
             ) : (
               <PauseCircleIcon />
@@ -43,7 +51,7 @@ function ActionButton() {
             },
           }}
         >
-          {isStart === false ? 'start' : 'pause'}
+          {isRunning === false ? 'start' : 'pause'}
         </Button>
       </Stack>
     </Box>
